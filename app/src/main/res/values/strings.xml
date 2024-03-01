@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Assessment</string>
+
+    <!-- Login screen -->
+    <string name="login_screen_login_title">Click login to authenticate</string>
+    <string name="login_screen_login_button_text">Login</string>
+
+</resources>

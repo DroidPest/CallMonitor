@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_bar_back_navigation_description">Navigate back</string>
+
+    <string name="text_component_h1_sample">This is an example of Heading1</string>
+    <string name="text_component_h2_sample">This is an example of Heading2</string>
+    <string name="text_component_h3_sample">This is an example of Heading3</string>
+    <string name="text_component_body1_sample">This is an example of Body1</string>
+    <string name="text_component_body2_sample">This is an example of Body2</string>
+    <string name="text_component_body3_sample">This is an example of Body3</string>
+    <string name="text_component_caption1_sample">This is an example of Caption1</string>
+    <string name="text_component_micro1_sample">This is an example of Micro1</string>
+</resources>
