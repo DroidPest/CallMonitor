@@ -31,6 +31,7 @@ private fun getProfileName(context: Context, uri: Uri): String {
     )
 
     cursor?.let {
+        if (cursor.count == 0) return name
         val displayName = cursor.getColumnIndex(PhoneLookup.DISPLAY_NAME)
 
         if (cursor.moveToFirst()) {

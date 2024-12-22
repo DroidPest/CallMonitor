@@ -87,6 +87,8 @@ class ContactLoggerManagerImpl @Inject constructor(val context: Context) : Conta
             CallLog.Calls.DATE + " DESC",
         )
         cursor?.let {
+            if (cursor.count == 0) return
+
             val duration = cursor.getColumnIndex(CallLog.Calls.DURATION)
             val name = cursor.getColumnIndex(CallLog.Calls.CACHED_NAME)
             val type = cursor.getColumnIndex(CallLog.Calls.TYPE)
@@ -95,6 +97,7 @@ class ContactLoggerManagerImpl @Inject constructor(val context: Context) : Conta
             val cachedNumber = cursor.getColumnIndex(CallLog.Calls.CACHED_NORMALIZED_NUMBER)
 
             cursor.moveToFirst()
+
             val callDate = cursor.getString(date)
             lastQueryTime = callDate
 
