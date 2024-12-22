@@ -24,7 +24,11 @@ class OngoingCallReceiver : BroadcastReceiver() {
             if (state.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
                 val number = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER).toString()
                 val name = getContactName(context, number)
-                phoneCallSessionManager.setPhoneCallSession(name, number, false)
+                phoneCallSessionManager.setPhoneCallSession(name, number, true)
+            } else if (state.equals(TelephonyManager.EXTRA_STATE_OFFHOOK)) {
+                val number = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER).toString()
+                val name = getContactName(context, number)
+                phoneCallSessionManager.setPhoneCallSession(name, number, true)
             } else if (state.equals(TelephonyManager.EXTRA_STATE_IDLE)) {
                 phoneCallSessionManager.setPhoneCallEnded()
             }

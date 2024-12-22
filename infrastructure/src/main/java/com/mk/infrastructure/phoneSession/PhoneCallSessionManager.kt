@@ -27,6 +27,6 @@ class PhoneCallSessionManagerImpl @Inject constructor() : PhoneCallSessionManage
     }
 
     override fun setPhoneCallEnded() {
-        _phoneCallState.update { null }
+        _phoneCallState.update { it?.copy(ongoing = false) }
     }
 }

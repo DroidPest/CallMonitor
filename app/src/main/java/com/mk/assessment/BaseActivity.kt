@@ -96,6 +96,7 @@ open class BaseActivity : ComponentActivity() {
             Manifest.permission.READ_CALL_LOG,
             Manifest.permission.READ_CONTACTS,
             Manifest.permission.READ_PHONE_STATE,
+            Manifest.permission.PROCESS_OUTGOING_CALLS
         )
         ActivityCompat.requestPermissions(this, permissions, ALL_PERMISSIONS)
     }
