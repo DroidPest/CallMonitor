@@ -6,18 +6,11 @@ import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.compose.rememberNavController
+import com.mk.networking.AssessmentServer
 
 class AppState(val navController: NavHostController) {
     fun navigateTo(screen: Routes, builder: NavOptionsBuilder.() -> Unit = {}) {
         if (alignRoutes(screen)) navController.navigate(screen.name, builder = builder)
-    }
-
-    fun <T : Any?> navigateToWithParams(route: Routes, params: T? = null, builder: NavOptionsBuilder.() -> Unit = {}) {
-        if (alignRoutes(route)) {
-            val screen = params?.let { createParamScreen(route, params) } ?: route.name
-
-            navController.navigate(screen, builder = builder)
-        }
     }
 
     private fun alignRoutes(screen: Routes): Boolean {
@@ -36,15 +29,6 @@ class AppState(val navController: NavHostController) {
         }
         return false
     }
-
-    private fun <T : Any> createParamScreen(route: Routes, params: T): String =
-        when (route) {
-//            Routes.PublicProfileScreen -> route.name + "/contentCreatorId=" + params.toString()
-//            Routes.FollowersScreen -> route.name + "/userId=" + params.toString()
-//            Routes.FollowingScreen -> route.name + "/userId=" + params.toString()
-//            Routes.NowScreen -> route.name + "?postSlug=$params"
-            else -> route.name
-        }
 }
 
 @Composable
@@ -55,3 +39,6 @@ fun rememberAssessmentAppState(navController: NavHostController = rememberNavCon
 
 @Suppress("TooGenericExceptionThrown")
 val LocalAppState = compositionLocalOf<AppState> { throw Exception("Missing App State composition") }
+
+@Suppress("TooGenericExceptionThrown")
+val LocalServerState = compositionLocalOf<AssessmentServer> { throw Exception("Missing Server State composition") }

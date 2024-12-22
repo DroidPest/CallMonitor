@@ -1,3 +1,4 @@
+import io.gitlab.arturbosch.detekt.Detekt
 import java.io.FileInputStream
 import java.util.Properties
 
@@ -5,6 +6,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.org.jetbrains.kotlin)
     alias(libs.plugins.hilt.plugin)
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.io.gitlab.arturbosch.detekt)
     id("org.jetbrains.kotlin.kapt")
 }
 
@@ -19,9 +22,20 @@ val versionMinor = 0
 val versionPatch = 0
 val versionBuild = (System.getenv("BUILD_NUM") ?: "9999").toInt()
 
+detekt {
+    autoCorrect = true
+    buildUponDefaultConfig = true
+    allRules = false
+    config.setFrom("$rootDir/config/detekt/detekt.yml")
+    baseline = file("$rootDir/config/detekt/baseline.xml")
+}
+tasks.withType<Detekt>().configureEach {
+    jvmTarget = JavaVersion.VERSION_17.toString()
+}
+
 android {
     namespace = "com.mk.assessment"
-    compileSdk = libs.versions.compileSdk.get().toInt()
+    compileSdkVersion(libs.versions.compileSdk.get().toInt())
 
     defaultConfig {
         applicationId = "com.mk.assessment"
@@ -77,12 +91,13 @@ android {
             signingConfig = signingConfigs.getByName("release")
         }
     }
+
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
@@ -94,6 +109,8 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "META-INF/io.netty.versions.properties"
+            excludes += "META-INF/INDEX.LIST"
         }
     }
     lint {
@@ -110,7 +127,6 @@ dependencies {
     implementation(project(path = ":infrastructure"))
     implementation(project(path = ":ui-library"))
     implementation(project(path = ":local-storage"))
-    implementation(project(path = ":api"))
     implementation(project(path = ":networking"))
 
     implementation(libs.androidx.core)
@@ -123,6 +139,7 @@ dependencies {
     implementation(libs.androidx.splash.screen)
     implementation(libs.androidx.paging.source)
     implementation(libs.androidx.paging.compose)
+    implementation(libs.core)
 
     debugImplementation(libs.androidx.compose.ui.tooling)
 
@@ -140,6 +157,9 @@ dependencies {
 
     // Logging
     implementation(libs.timber)
+
+    // Detekt
+    detektPlugins(libs.detekt.formatting)
 
     // Tests
     testImplementation(libs.junit.android.test)

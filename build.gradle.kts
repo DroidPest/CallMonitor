@@ -16,34 +16,6 @@ subprojects {
     }
 }
 
-apply {
-    from(rootProject.file("$rootDir/config/detekt/detekt.gradle"))
-}
-
-tasks.register("detektProjectBaseline", DetektCreateBaselineTask::class) {
-    description = "Overrides detekt baseline"
-
-    setSource(files(rootDir))
-    config.setFrom(file("$rootDir/config/detekt/detekt.yml"))
-    baseline.set(file("$rootDir/config/detekt/baseline.xml"))
-
-    ignoreFailures.set(true)
-    parallel.set(true)
-    buildUponDefaultConfig.set(true)
-    include("**/*.kt")
-    include("**/*.kts")
-    exclude("**/resources/**")
-    exclude("**/build/**")
-}
-
-tasks.getByPath(":app:preBuild").dependsOn(":installGitHook")
-
-tasks.register("installGitHook", Copy::class) {
-    exec {
-        commandLine("cp", "./config/scripts/pre-commit", "./.git/hooks")
-    }
-}
-
 tasks.register("clean", Delete::class) {
     delete (rootProject.buildDir)
 }

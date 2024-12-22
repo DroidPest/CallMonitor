@@ -27,11 +27,13 @@ class MainActivityViewModel @Inject constructor(
     val uiState: StateFlow<MainActivityUiState> = _uiState
 
     fun isUserAuthenticated() = sessionManager.isUserAuthenticated()
+    fun userState() = sessionManager.userDataState
+
     fun isUserInit() = sessionManager.userDataState.value == null
 
     fun authenticateUser(): Deferred<Unit> {
         return viewModelScope.async {
-            sessionManager.userDataState.value.authenticationState.emit(
+            sessionManager.setUserAuthentication(
                 enumValueOrNull(
                     sharedPreferences.getString(
                         AuthenticationState::class.java.name,
@@ -42,5 +44,14 @@ class MainActivityViewModel @Inject constructor(
             )
             _uiState.emit(MainActivityUiState.Content)
         }
+    }
+
+    fun logoutUser() {
+        sessionManager.setUserAuthentication(authenticationState = AuthenticationState.NOT_AUTHENTICATED)
+
+        sharedPreferences.putString(
+            AuthenticationState::class.java.name,
+            AuthenticationState.NOT_AUTHENTICATED.name,
+        )
     }
 }

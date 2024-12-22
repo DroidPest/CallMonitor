@@ -1,53 +1,55 @@
 [versions]
-compileSdk = "34"
-minSdk = "28"
-targetSdk = "34"
+compileSdk = "35"
+minSdk = "23"
+targetSdk = "35"
 kotlinCompilerExtensionVersion = "1.5.1"
 
-kotlinxCoroutinesAndroid = "1.7.3"
+kotlinxCoroutinesAndroid = "1.9.0"
 orgJacocoCore = "0.8.10"
 
 #Libs
-coreKtxVersion = "1.12.0"
-activityComposeVersion = "1.8.2"
-androidxComposeBom = "2024.02.00"
-workRuntimeKtxVersion = "2.9.0"
+coreKtxVersion = "1.15.0"
+activityComposeVersion = "1.9.3"
+androidxComposeBom = "2024.12.01"
+workRuntimeKtxVersion = "2.10.0"
 junitVersion = "4.13.2"
-extJunitVersion = "1.1.5"
-espressoCoreVersion = "3.5.1"
-composeNavigationVersion = "2.7.7"
+extJunitVersion = "1.2.1"
+espressoCoreVersion = "3.6.1"
+composeNavigationVersion = "2.8.5"
 splashScreenVersion = "1.0.1"
 windowSizeVersion = "1.2.0"
-androidxLifecycleVersion = "2.7.0"
-androidxWorkerVersion = "2.9.0"
+androidxLifecycleVersion = "2.8.7"
+androidxWorkerVersion = "2.10.0"
 accompanist = "0.32.0"
 
 # Paging
-pagingVersion = "3.2.1"
+pagingVersion = "3.3.5"
 
 # Hilt
-hiltVersion = "2.48"
-hiltComposeVersion = "1.1.0"
+hiltVersion = "2.54"
+hiltComposeVersion = "1.2.0"
 
 # Mockito
 mockitoCoreVersion = "5.4.0"
 mockitoKotlinVersion = "5.0.0"
 
 # Networking
-retrofit = "2.9.0"
-okhttp = "4.11.0"
+retrofit = "2.11.0"
+okhttp = "4.12.0"
 
 # Coil - Image Viewer
-coilVersion = "2.4.0"
+coilVersion = "2.7.0"
 
 #Plugins
-androidGradlePluginVersion = "8.2.2"
-orgJetbrainsKotlinPluginVersion = "1.9.0"
+androidGradlePluginVersion = "8.7.3"
+orgJetbrainsKotlinPluginVersion = "2.0.20"
 
-
-ioGitlabArturboschDetektPluginVersion = "1.23.0"
+ktorGsonVersion = "1.6.8"
+ktorVersion = "3.0.3"
+ioGitlabArturboschDetektPluginVersion = "1.23.7"
 kotlinterPluginVersion = "3.15.0"
-appcompat = "1.6.1"
+appcompat = "1.7.0"
+core = "1.13.1"
 
 [libraries]
 androidx-core = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtxVersion" }
@@ -56,7 +58,7 @@ androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", versi
 androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
-androidx-material3 = { group = "androidx.compose.material3", name = "material3", version = "1.1.2" }
+androidx-material3 = { group = "androidx.compose.material3", name = "material3", version = "1.3.1" }
 androidx-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "composeNavigationVersion" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }
 runtime-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "workRuntimeKtxVersion" }
@@ -81,7 +83,7 @@ androidx-hilt-compiler = { group = "androidx.hilt", name = "hilt-compiler", vers
 # Logging
 timber = { group = "com.jakewharton.timber", name = "timber", version = "5.0.1" }
 orhanobut = { group = "com.orhanobut", name = "logger", version = "2.2.0" }
-http-logging = { module = "com.squareup.okhttp3:logging-interceptor", version = "4.11.0" }
+http-logging = { module = "com.squareup.okhttp3:logging-interceptor", version = "4.12.0" }
 
 #Tests
 junit-android-test = { group = "junit", name = "junit", version.ref = "junitVersion" }
@@ -97,10 +99,20 @@ retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 gson-converter = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit"}
 
+# Ktor
+ktor-netty = { group = "io.ktor", name = "ktor-server-netty", version.ref = "ktorVersion" }
+ktor-core = { group = "io.ktor", name = "ktor-server-core", version.ref = "ktorVersion" }
+ktor-content-negotiation = { group = "io.ktor", name = "ktor-server-content-negotiation", version.ref = "ktorVersion" }
+ktor-gson = { group = "io.ktor", name = "ktor-serialization-gson", version.ref = "ktorVersion" }
+
 # Accompanist
 accompanist-permissions = { group = "com.google.accompanist", name = "accompanist-permissions", version.ref = "accompanist" }
 accompanist-webview = { group = "com.google.accompanist", name = "accompanist-webview", version.ref = "accompanist" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+
+# Detekt
+detekt-formatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "ioGitlabArturboschDetektPluginVersion" }
+core = { group = "androidx.core", name = "core", version.ref = "core" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePluginVersion" }
@@ -109,3 +121,4 @@ hilt-plugin = { id = "com.google.dagger.hilt.android", version.ref = "hiltVersio
 android-library = { id = "com.android.library", version.ref = "androidGradlePluginVersion" }
 io-gitlab-arturbosch-detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "ioGitlabArturboschDetektPluginVersion" }
 kotlinter = { id = "org.jmailen.kotlinter", version.ref = "kotlinterPluginVersion" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "orgJetbrainsKotlinPluginVersion" }

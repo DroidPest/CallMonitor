@@ -5,20 +5,26 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewModelScope
 import com.mk.assessment.navigation.LocalAppState
+import com.mk.assessment.navigation.LocalServerState
 import com.mk.assessment.navigation.Navigation
+import com.mk.assessment.navigation.Routes
 import com.mk.assessment.navigation.rememberAssessmentAppState
+import com.mk.infrastructure.AuthenticationState
+import com.mk.networking.AssessmentServer
 import com.mk.theme.MainTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity() {
+    @Inject lateinit var assessmentServer: AssessmentServer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,27 +38,20 @@ class MainActivity : BaseActivity() {
         setContent {
             CompositionLocalProvider(
                 LocalAppState provides rememberAssessmentAppState(),
+                LocalServerState provides assessmentServer,
             ) {
+                val userState by viewModel.userState().collectAsStateWithLifecycle()
                 appState = LocalAppState.current
 
+                if (
+                    userState.authenticationState == AuthenticationState.NOT_AUTHENTICATED &&
+                    appState.navController.currentDestination?.route != null
+                ) {
+                    appState.navigateTo(Routes.LoginScreen)
+                }
+
                 MainTheme {
-                    Scaffold(
-                        bottomBar = {
-//                            NavigationBar(
-//                                // This filter is used till we finish the feature, same with isFeatureEnabled
-//                                Tabs.values()
-//                                    .filter {
-//                                        if (it.title == R.string.tab_shop) {
-//                                            isFeatureEnabled.observe(FeatureModel.Code.SHOPIFY).collectAsState().value
-//                                        } else {
-//                                            true
-//                                        }
-//                                    }
-//                                    .toTypedArray(),
-//                                LocalAppState.current.navController
-//                            )
-                        },
-                    ) { innerPadding ->
+                    Scaffold { innerPadding ->
                         Surface {
                             Navigation(
                                 modifier = Modifier.padding(innerPadding),
@@ -63,11 +62,5 @@ class MainActivity : BaseActivity() {
                 }
             }
         }
-    }
-
-    @Preview(showBackground = true)
-    @Composable
-    fun GreetingPreview() {
-        setAppContent(getStartDestination())
     }
 }

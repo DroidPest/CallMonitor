@@ -1,2 +1,0 @@
-json_key_file("fastlane/google-services.json")
-package_name("com.mk.assessment")

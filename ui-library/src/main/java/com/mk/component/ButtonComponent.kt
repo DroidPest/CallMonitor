@@ -60,6 +60,7 @@ interface ButtonComponent {
         )
     }
 
+    @Suppress("ABSTRACT_COMPOSABLE_DEFAULT_PARAMETER_VALUE")
     @Composable
     fun primary(
         @StringRes text: Int,
@@ -69,6 +70,7 @@ interface ButtonComponent {
         iconTint: Color = Color.Unspecified,
         enabled: Boolean = true,
         interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+        textColor: Color = Color.Unspecified,
         colors: ButtonColors? = null,
         isLoading: Boolean = false,
         loadingColor: Color = LocalTheme.current.colorScheme.neutral1,
@@ -109,7 +111,10 @@ interface ButtonComponent {
                             )
                             Spacer(modifier = Modifier.width(6.dp))
                         }
-                        UiLibrary.TextComponent.primaryButtonText(text = stringResource(id = text))
+                        UiLibrary.TextComponent.primaryButtonText(
+                            text = stringResource(id = text),
+                            color = textColor,
+                        )
                     } else {
                         CircularProgressIndicator(
                             modifier = Modifier.size(20.dp),
@@ -122,43 +127,7 @@ interface ButtonComponent {
         }
     }
 
-    @Composable
-    fun secondary(
-        @StringRes text: Int,
-        onClick: () -> Unit,
-        modifier: Modifier = Modifier,
-        enabled: Boolean = true,
-        interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    ) {
-        with(LocalTheme.current.buttonStyle.secondary) {
-            defaultButton(
-                onClick = onClick,
-                modifier = modifier,
-                enabled = enabled,
-                shape = shape,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = color.containerColor,
-                    contentColor = color.contentColor,
-                    disabledContainerColor = color.disabledContainerColor,
-                    disabledContentColor = color.disabledContentColor,
-                ),
-                elevation = ButtonDefaults.buttonElevation(
-                    defaultElevation = elevation.defaultElevation,
-                    pressedElevation = elevation.pressedElevation,
-                    focusedElevation = elevation.focusedElevation,
-                    hoveredElevation = elevation.hoveredElevation,
-                    disabledElevation = elevation.disabledElevation,
-                ),
-                border = border,
-                contentPadding = paddingValues,
-                interactionSource = interactionSource,
-                content = {
-                    UiLibrary.TextComponent.primaryButtonText(text = stringResource(id = text))
-                },
-            )
-        }
-    }
-
+    @Suppress("ABSTRACT_COMPOSABLE_DEFAULT_PARAMETER_VALUE")
     @Composable
     fun primaryOutline(
         modifier: Modifier = Modifier,

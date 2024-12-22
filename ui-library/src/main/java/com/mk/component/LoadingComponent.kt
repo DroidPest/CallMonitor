@@ -10,10 +10,10 @@ import androidx.compose.ui.tooling.preview.Preview
 
 interface LoadingComponent {
     @Composable
-    fun LoadingScreen() {
+    fun LoadingCentered() {
         Box(
             modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             CircularProgressIndicator()
         }
@@ -21,8 +21,8 @@ interface LoadingComponent {
 
     @Preview
     @Composable
-    fun LoadingScreenPreview() {
-        LoadingScreen()
+    private fun LoadingScreenPreview() {
+        LoadingCentered()
     }
 }
 

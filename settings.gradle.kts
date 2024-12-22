@@ -1,15 +1,15 @@
 pluginManagement {
     repositories {
-        google()
         mavenCentral()
+        google()
         gradlePluginPortal()
     }
 }
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
-        google()
         mavenCentral()
+        google()
     }
 }
 
@@ -19,4 +19,3 @@ include(":infrastructure")
 include(":ui-library")
 include(":local-storage")
 include(":networking")
-include(":api")

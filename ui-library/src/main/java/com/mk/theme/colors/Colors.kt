@@ -1,6 +1,5 @@
 package com.mk.theme.colors
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -22,7 +21,6 @@ import androidx.compose.ui.unit.dp
 import com.mk.component.AppBarComponent
 import com.mk.component.ButtonComponent
 import com.mk.component.TextComponent
-import com.mk.component.TextInputComponent
 import com.mk.component.UiLibrary
 import com.mk.theme.MainTheme
 
@@ -85,6 +83,7 @@ data class Colors(
     val lightComplementary4: Color = Color(color = 0xFF4E65CE),
 
     val sooRed: Color = Color(color = 0xFFFF001B),
+    val sooGreen: Color = Color(color = 0xFF59B857),
 
     // Light scheme colors
     val mdThemeLightPrimary: Color = lightPrimary4,
@@ -169,46 +168,6 @@ private fun ExampleScreen() {
                         )
                     },
                 )
-
-                Box(
-                    modifier = Modifier.padding(10.dp),
-                ) {
-                    UiLibrary.TextInputComponent.DefaultTextInput(
-                        value = "Title",
-                        onValueChange = {},
-                    )
-                }
-
-                Box(
-                    modifier = Modifier.padding(10.dp),
-                ) {
-                    UiLibrary.TextInputComponent.DefaultTextInput(
-                        value = "Title",
-                        onValueChange = {},
-                        isError = true,
-                        supportingText = {
-                            Text(text = "Some validation error")
-                        },
-                    )
-                }
-
-                Box(modifier = Modifier.padding(10.dp)) {
-                    UiLibrary.TextInputComponent.DefaultTextInput(
-                        value = "",
-                        onValueChange = {},
-                        placeholder = {
-                            Text("Placeholder")
-                        },
-                    )
-                }
-
-                Box(modifier = Modifier.padding(10.dp)) {
-                    UiLibrary.TextInputComponent.DefaultTextInput(
-                        value = "long text",
-                        onValueChange = {},
-                        maxCharacters = 5,
-                    )
-                }
 
                 Row(modifier = Modifier.padding(5.dp)) {
                     Button(onClick = { }, modifier = Modifier.padding(5.dp)) {

@@ -55,6 +55,7 @@ interface TextComponent {
         )
     }
 
+    @Suppress("ABSTRACT_COMPOSABLE_DEFAULT_PARAMETER_VALUE")
     @Composable
     fun primaryButtonText(
         @StringRes text: Int,
@@ -81,6 +82,7 @@ interface TextComponent {
         )
     }
 
+    @Suppress("ABSTRACT_COMPOSABLE_DEFAULT_PARAMETER_VALUE")
     @Composable
     fun button1(
         @StringRes text: Int,
@@ -109,6 +111,7 @@ interface TextComponent {
         )
     }
 
+    @Suppress("ABSTRACT_COMPOSABLE_DEFAULT_PARAMETER_VALUE")
     @Composable
     fun h1(
         @StringRes text: Int,
@@ -137,6 +140,7 @@ interface TextComponent {
         )
     }
 
+    @Suppress("ABSTRACT_COMPOSABLE_DEFAULT_PARAMETER_VALUE")
     @Composable
     fun h2(
         @StringRes text: Int,
@@ -165,6 +169,7 @@ interface TextComponent {
         )
     }
 
+    @Suppress("ABSTRACT_COMPOSABLE_DEFAULT_PARAMETER_VALUE")
     @Composable
     fun h3(
         @StringRes text: Int,
@@ -193,6 +198,7 @@ interface TextComponent {
         )
     }
 
+    @Suppress("ABSTRACT_COMPOSABLE_DEFAULT_PARAMETER_VALUE")
     @Composable
     fun body1(
         @StringRes text: Int,
@@ -221,6 +227,7 @@ interface TextComponent {
         )
     }
 
+    @Suppress("ABSTRACT_COMPOSABLE_DEFAULT_PARAMETER_VALUE")
     @Composable
     fun body2(
         @StringRes text: Int,
@@ -249,6 +256,7 @@ interface TextComponent {
         )
     }
 
+    @Suppress("ABSTRACT_COMPOSABLE_DEFAULT_PARAMETER_VALUE")
     @Composable
     fun body3(
         @StringRes text: Int,
@@ -277,6 +285,7 @@ interface TextComponent {
         )
     }
 
+    @Suppress("ABSTRACT_COMPOSABLE_DEFAULT_PARAMETER_VALUE")
     @Composable
     fun caption1(
         @StringRes text: Int,
@@ -305,6 +314,7 @@ interface TextComponent {
         )
     }
 
+    @Suppress("ABSTRACT_COMPOSABLE_DEFAULT_PARAMETER_VALUE")
     @Composable
     fun micro1(
         @StringRes text: Int,
@@ -333,6 +343,7 @@ interface TextComponent {
         )
     }
 
+    @Suppress("ABSTRACT_COMPOSABLE_DEFAULT_PARAMETER_VALUE")
     @Composable
     fun primaryButtonText(
         text: String,
@@ -343,6 +354,7 @@ interface TextComponent {
         softWrap: Boolean = true,
         maxLines: Int = Int.MAX_VALUE,
         minLines: Int = 1,
+        color: Color = Color.Unspecified,
         onTextLayout: (TextLayoutResult) -> Unit = {},
     ) {
         defaultText(
@@ -355,10 +367,12 @@ interface TextComponent {
             maxLines = maxLines,
             minLines = minLines,
             onTextLayout = onTextLayout,
+            color = color,
             style = LocalTheme.current.fontStyle.body1,
         )
     }
 
+    @Suppress("ABSTRACT_COMPOSABLE_DEFAULT_PARAMETER_VALUE")
     @Composable
     fun button1(
         text: String,
@@ -387,6 +401,7 @@ interface TextComponent {
         )
     }
 
+    @Suppress("ABSTRACT_COMPOSABLE_DEFAULT_PARAMETER_VALUE")
     @Composable
     fun h1(
         text: String,
@@ -415,6 +430,7 @@ interface TextComponent {
         )
     }
 
+    @Suppress("ABSTRACT_COMPOSABLE_DEFAULT_PARAMETER_VALUE")
     @Composable
     fun h2(
         text: String,
@@ -443,6 +459,7 @@ interface TextComponent {
         )
     }
 
+    @Suppress("ABSTRACT_COMPOSABLE_DEFAULT_PARAMETER_VALUE")
     @Composable
     fun h3(
         text: String,
@@ -471,6 +488,7 @@ interface TextComponent {
         )
     }
 
+    @Suppress("ABSTRACT_COMPOSABLE_DEFAULT_PARAMETER_VALUE")
     @Composable
     fun body1(
         text: String,
@@ -499,6 +517,7 @@ interface TextComponent {
         )
     }
 
+    @Suppress("ABSTRACT_COMPOSABLE_DEFAULT_PARAMETER_VALUE")
     @Composable
     fun body2(
         text: String,
@@ -527,6 +546,7 @@ interface TextComponent {
         )
     }
 
+    @Suppress("ABSTRACT_COMPOSABLE_DEFAULT_PARAMETER_VALUE")
     @Composable
     fun body3(
         text: String,
@@ -555,6 +575,7 @@ interface TextComponent {
         )
     }
 
+    @Suppress("ABSTRACT_COMPOSABLE_DEFAULT_PARAMETER_VALUE")
     @Composable
     fun caption1(
         text: String,
@@ -583,6 +604,7 @@ interface TextComponent {
         )
     }
 
+    @Suppress("ABSTRACT_COMPOSABLE_DEFAULT_PARAMETER_VALUE")
     @Composable
     fun micro1(
         text: String,

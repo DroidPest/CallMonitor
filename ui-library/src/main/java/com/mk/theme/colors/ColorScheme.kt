@@ -36,4 +36,5 @@ data class ColorScheme(
     val complementary4: Color = if (isDarkTheme) colors.darkComplementary4 else colors.lightComplementary4,
 
     val sooRed: Color = colors.sooRed, // The same for dark and light modes
+    val sooGreen: Color = colors.sooGreen, // The same for dark and light modes
 )

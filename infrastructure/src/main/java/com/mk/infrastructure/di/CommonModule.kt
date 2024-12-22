@@ -4,6 +4,8 @@ import android.content.Context
 import android.net.ConnectivityManager
 import com.mk.infrastructure.AppSessionManager
 import com.mk.infrastructure.AssessmentAppSessionManager
+import com.mk.infrastructure.phoneSession.PhoneCallSessionManager
+import com.mk.infrastructure.phoneSession.PhoneCallSessionManagerImpl
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -24,5 +26,9 @@ abstract class CommonModule {
 
     @Singleton
     @Binds
-    abstract fun provideSessionManager(stadiumAppSessionManager: AssessmentAppSessionManager): AppSessionManager
+    abstract fun provideSessionManager(AppSessionManager: AssessmentAppSessionManager): AppSessionManager
+
+    @Singleton
+    @Binds
+    abstract fun providePhoneCallSessionManager(phoneCallSessionManager: PhoneCallSessionManagerImpl): PhoneCallSessionManager
 }
