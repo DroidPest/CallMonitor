@@ -51,12 +51,12 @@ android {
     }
 
     signingConfigs {
-        create("devDebug") {
-            storeFile = file("$rootDir/config/keystore/debug/debug.keystore.jks")
-            storePassword = "android"
-            keyAlias = "androiddebugkey"
-            keyPassword = "android"
-        }
+//        create("devDebug") {
+//            storeFile = file("$rootDir/config/keystore/debug/debug.keystore.jks")
+//            storePassword = "android"
+//            keyAlias = "androiddebugkey"
+//            keyPassword = "android"
+//        }
         create("release") {
             if (keyStorePropertiesFile.exists()) {
                 keyAlias = keyStoreProperties["androidReleaseKeyAlias"] as String
@@ -72,7 +72,7 @@ android {
             isDebuggable = true
             applicationIdSuffix = ".debug"
             versionNameSuffix = "-debug"
-            signingConfig = signingConfigs.getByName("devDebug")
+//            signingConfig = signingConfigs.getByName("devDebug")
         }
         create("staging") {
             isDebuggable = true
