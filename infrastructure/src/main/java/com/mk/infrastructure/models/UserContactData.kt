@@ -5,5 +5,5 @@ data class UserContactData(
     val duration: String,
     val number: String,
     val name: String,
-    val timesQueried: String,
+    val timesQueried: Int,
 )

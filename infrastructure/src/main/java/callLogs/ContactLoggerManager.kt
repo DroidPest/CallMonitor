@@ -9,8 +9,10 @@ import com.mk.infrastructure.models.UserContactData
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
+import kotlin.collections.plus
 
 interface ContactLoggerManager {
     val savedCallLogs: StateFlow<List<String>>
@@ -19,6 +21,7 @@ interface ContactLoggerManager {
     fun syncCallLogs()
     fun registerCallLogs()
     fun unregisterCallLogs()
+    fun getSavedLaunchCallLogs(): List<UserContactData>
 }
 
 class ContactLoggerManagerImpl @Inject constructor(val context: Context) : ContactLoggerManager {
@@ -48,6 +51,13 @@ class ContactLoggerManagerImpl @Inject constructor(val context: Context) : Conta
 
     override fun unregisterCallLogs() {
         contentResolver.unregisterContentObserver(callLogObserver)
+    }
+
+    override fun getSavedLaunchCallLogs(): List<UserContactData> {
+        _savedLaunchCallLogs.update {
+            it.map { item -> item.copy(timesQueried = item.timesQueried + 1) }
+        }
+        return savedLaunchCallLogs.value
     }
 
     override fun syncCallLogs() {
@@ -137,7 +147,7 @@ class ContactLoggerManagerImpl @Inject constructor(val context: Context) : Conta
                             duration = callDuration,
                             number = phNumber,
                             name = cursor.getString(name) ?: DEFAULT_CONTACT_NAME,
-                            timesQueried = "1",
+                            timesQueried = 0,
                         ),
                     )
                 }
@@ -148,12 +158,7 @@ class ContactLoggerManagerImpl @Inject constructor(val context: Context) : Conta
         /*
             created 2 data streams of similar objects for efficiency over space
          */
-        _savedCallLogs.update {
-            callLogs + _savedCallLogs.value.toMutableList()
-        }
-
-        _savedLaunchCallLogs.update {
-            appLaunchCallLogs + _savedLaunchCallLogs.value.toMutableList()
-        }
+        _savedCallLogs.update { callLogs + it }
+        _savedLaunchCallLogs.update { appLaunchCallLogs + it }
     }
 }

@@ -36,21 +36,6 @@ open class BaseActivity : ComponentActivity() {
         checkPermissions()
     }
 
-    override fun onResume() {
-        super.onResume()
-        if (AppVisibilityUtil.isAppInBackground()) {
-            contactLoggerManager.syncCallLogs()
-            contactLoggerManager.registerCallLogs()
-        }
-        AppVisibilityUtil.setAppVisibilityState()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        AppVisibilityUtil.setAppVisibilityState()
-        contactLoggerManager.unregisterCallLogs()
-    }
-
     protected fun getStartDestination(): String {
         return if (viewModel.isUserAuthenticated()) {
             Routes.HomeScreen.name

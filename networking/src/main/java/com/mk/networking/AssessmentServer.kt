@@ -54,7 +54,7 @@ class AssessmentServer @Inject constructor() {
                 }
                 get("/log") {
                     call.response.status(HttpStatusCode.OK)
-                    call.respond(contactLoggerManager.savedLaunchCallLogs.value, typeInfo<PhoneCallSession>())
+                    call.respond(contactLoggerManager.getSavedLaunchCallLogs(), typeInfo<PhoneCallSession>())
                 }
             }.run {
                 routes.addAll(
