@@ -9,13 +9,11 @@ import com.mk.infrastructure.models.UserContactData
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 import kotlin.collections.plus
 
 interface ContactLoggerManager {
-    val savedCallLogs: StateFlow<List<String>>
     val savedLaunchCallLogs: StateFlow<List<UserContactData>>
     fun initCallLogManager()
     fun syncCallLogs()
@@ -24,12 +22,21 @@ interface ContactLoggerManager {
     fun getSavedLaunchCallLogs(): List<UserContactData>
 }
 
+/**
+ * Implementation of [ContactLoggerManager] that manages and retrieves call log data.
+ *
+ * This class is responsible for:
+ * - Observing changes to the call log.
+ * - Querying call logs based on specified criteria.
+ * - Storing and providing access to call log data.
+ * - Tracking call logs since the app launch.
+ *
+ * @property context The application context.
+ */
 class ContactLoggerManagerImpl @Inject constructor(val context: Context) : ContactLoggerManager {
     val contentResolver = context.contentResolver
     private var lastQueryTime = System.currentTimeMillis().toString()
     private var appLaunchDate = System.currentTimeMillis().toString()
-    private val _savedCallLogs = MutableStateFlow<List<String>>(listOf())
-    override val savedCallLogs = _savedCallLogs.asStateFlow()
     private val _savedLaunchCallLogs = MutableStateFlow<List<UserContactData>>(listOf())
     override val savedLaunchCallLogs = _savedLaunchCallLogs.asStateFlow()
 
@@ -74,7 +81,6 @@ class ContactLoggerManagerImpl @Inject constructor(val context: Context) : Conta
         queryParams: Array<String>? = null,
     ) {
         val deviceUserName = getDeviceUserName(context)
-        val callLogs = mutableListOf<String>()
         val appLaunchCallLogs = mutableListOf<UserContactData>()
 
         val callLogsBuffer = ArrayList<String>()
@@ -138,15 +144,14 @@ class ContactLoggerManagerImpl @Inject constructor(val context: Context) : Conta
                     else -> { deviceUserName }
                 }
 
-                callLogs.add("$callerName $callDuration ")
                 if (callDate > appLaunchDate) {
                     appLaunchCallLogs.add(
-                        // im unsure on what is needed for timesQueried, seems like it shouldnt change
                         UserContactData(
                             beginning = formatMsISO(callDate.toLong()),
                             duration = callDuration,
                             number = phNumber,
-                            name = cursor.getString(name) ?: DEFAULT_CONTACT_NAME,
+                            contactName = cursor.getString(name) ?: DEFAULT_CONTACT_NAME,
+                            callerName = callerName,
                             timesQueried = 0,
                         ),
                     )
@@ -155,10 +160,6 @@ class ContactLoggerManagerImpl @Inject constructor(val context: Context) : Conta
             cursor.close()
         }
 
-        /*
-            created 2 data streams of similar objects for efficiency over space
-         */
-        _savedCallLogs.update { callLogs + it }
         _savedLaunchCallLogs.update { appLaunchCallLogs + it }
     }
 }

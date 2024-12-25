@@ -18,7 +18,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import callLogs.ContactLoggerManager
 import com.mk.assessment.navigation.AppState
 import com.mk.assessment.navigation.Routes
-import com.mk.infrastructure.lifecycle.AppVisibilityUtil
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -81,7 +80,7 @@ open class BaseActivity : ComponentActivity() {
             Manifest.permission.READ_CALL_LOG,
             Manifest.permission.READ_CONTACTS,
             Manifest.permission.READ_PHONE_STATE,
-            Manifest.permission.PROCESS_OUTGOING_CALLS
+            Manifest.permission.PROCESS_OUTGOING_CALLS,
         )
         ActivityCompat.requestPermissions(this, permissions, ALL_PERMISSIONS)
     }
